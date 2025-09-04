@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <style>
+        body {
+            background: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            height: 100vh;
+        }
+
+        #container {
+            position: relative;
+            background: black;
+            color: white;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 400px;
+            border-radius: 10px;
+            border: none;
+            font-size: 50px;
+            text-align: center;
+        }
+
+        .btn-container {
+            position: absolute;
+            width: 250px;
+            height: 50px;
+            margin: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; transform: translateX(0.0005%);
+        }
+
+        #yesBtn {
+            background: green;
+            color: white;
+            padding: 10px 20px;
+            font-size: 20px;
+        }
+
+        #noBtn {
+            background: red;
+            color: white;
+            padding: 10px 20px;
+            font-size: 20px;
+            position: absolute;
+            left: 190px;
+            top: 2px;
+        }
+
+        #timer {
+            font-size: 15px;
+        }
+
+        #retryBtn {
+            margin-top:10px;
+            padding:10px 20px;
+            font-size:18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <p>Are you dumb?</p>
+        <p id="timer">Time Left: </p>
+        <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+    const container = document.getElementById("container");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const timerDisplay = document.getElementById("timer");
+
+    let timeLeft = 10;
+    let countdown;
+
+    // Start the countdown timer
+    function startTimer() {
+        countdown = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) {
+                timerDisplay.textContent = "Time Left: " + timeLeft;
+            } else {
+                clearInterval(countdown);
+                showTryAgain(); // ✅ fixed function call
+            }
+        }, 1000);
+    }
+
+    // Show "Try Again" button when time runs out
+    function showTryAgain() {
+        container.innerHTML = `
+            <p>You're so dumb, you can't even answer a simple question.😒😒😒</p>
+            <button id="retryBtn">Try Again</button>
+        `;
+
+        document.getElementById("retryBtn").addEventListener("click", () => {
+            location.reload(); // refresh page to restart
+        });
+    }
+
+    startTimer();
+
+    // YES button is clicked
+    yesBtn.addEventListener("click", () => {
+        clearInterval(countdown); // ✅ stop the timer
+        container.innerHTML = "Ha, I knew it!🤣";
+    });
+
+    // NO button is clicked
+    noBtn.addEventListener("click", () => {
+        const containerRect = container.getBoundingClientRect();
+        const noBtnRect = noBtn.getBoundingClientRect();
+
+        let maxX = container.clientWidth - noBtn.offsetWidth;
+        let maxY = container.clientHeight - noBtn.offsetHeight;
+
+        let newX = Math.random() * maxX;
+        let newY = Math.random() * maxY;
+
+        noBtn.style.left = `${newX}px`;
+        noBtn.style.top = `${newY}px`;
+    });
+</script>
+
+
+</body>
+
+</html>
