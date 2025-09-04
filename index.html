@@ -36,9 +36,9 @@
             height: 50px;
             margin: 45px;
             display: flex;
-            justify-content: center;
+            justify-content: 100px;
             align-items: center;
-            gap: 20px; transform: translateX(0.0005%);
+            gap: 20px;
         }
 
         #yesBtn {
@@ -54,7 +54,7 @@
             padding: 10px 20px;
             font-size: 20px;
             position: absolute;
-            left: 190px;
+            left: 180px;
             top: 2px;
         }
 
@@ -106,7 +106,7 @@
     // Show "Try Again" button when time runs out
     function showTryAgain() {
         container.innerHTML = `
-            <p>You're so dumb, you can't even answer a simple question.😒😒😒</p>
+            <p>You're so dumb, you can't even answer a simple question.😒</p>
             <button id="retryBtn">Try Again</button>
         `;
 
